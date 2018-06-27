@@ -28,7 +28,10 @@ public class CoreController extends Controller {
     public static final String SORTBY="sortBy";
     public static final String ERROR_MSG="_err_msg";
     public static final String SUCCESS_MSG="_suc_msg";
-
+    public static final String ERR_MSG_401="账户失效或被禁用，请尝试重新登录或联系管理员。";
+    public static final String ERR_MSG_403="您没有权限访问该资源。";
+    public static final String ERR_MSG_900="您的账户正在其他地方进行登录。";
+    public static final String ERR_MSG_901="您的账户因为异常原因被强制退出，请重新登录。";
 
     /**
      * @param @return 参数说明
@@ -104,30 +107,27 @@ public class CoreController extends Controller {
      * @author: 于海慧  2017/1/16
      * @Description:用户未通过认证返回结果
      **/
-    public void renderUnauthenticationJSON(String str) {
+    public void renderAuth401(String msg) {
         getResponse().setStatus(401);
-        getResponse().setHeader("customData",str);
-        renderFailJSON("用户身份无效或被禁用，再进行操作。");
+//        getResponse().setHeader("customData",str);
+        renderFailJSON(StrUtil.isBlank(msg)?ERR_MSG_401:msg);
         return;
     }
-
-
-
-    public void renderUnauthorizationJSON(String str){
+    public void renderAuth403(String msg){
         getResponse().setStatus(403);
-        getResponse().setHeader("customData",str);
-        renderFailJSON("您没有权限访问该资源。");
+        renderFailJSON(StrUtil.isBlank(msg)?ERR_MSG_403:msg);
         return;
     }
-
-    public void renderAuth900(String str) {
+    public void renderAuth900(String msg) {
         getResponse().setStatus(900);
-        getResponse().setHeader("customData",str);
-        renderFailJSON("您的账户正在其他地方进行登录");
+        renderFailJSON(StrUtil.isBlank(msg)?ERR_MSG_900:msg);
         return;
     }
-
-
+    public void renderAuth901(String msg){
+        getResponse().setStatus(901);
+        renderFailJSON(StrUtil.isBlank(msg)?ERR_MSG_901:msg);
+        return;
+    }
     private static  ValueFilter filter = new ValueFilter() {
         public Object process(Object obj, String s, Object v) {
             if(v==null)
@@ -139,9 +139,6 @@ public class CoreController extends Controller {
     protected User currUser(){
         return (User)getAttr(Consts.CURR_USER);
     }
-
-//    protected List<Role> currUserRoles(){return getAttr(Consts.CURR_USER_ROLES);}
-
     protected <T> T getApModel(Class clz){
         return (T)getModel(clz,"",true);
     }
@@ -166,6 +163,7 @@ public class CoreController extends Controller {
             vals=(String[])entry.getValue();
             if(vals.length==1)val=vals[0];
             else val=ArrayUtil.join(vals,StrUtil.COMMA);
+            if(StrUtil.isBlank((String)val))continue A;
             for(Field f:fields){
                 if(f.getName().equals(name)){
                     String typeName=f.getType().getName();

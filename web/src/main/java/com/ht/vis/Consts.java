@@ -14,7 +14,7 @@ public interface Consts {
 
     String ENCRYPT_KEY = "ht_vis-never-late";
 
-    String USER_ACCESS_TOKEN = "uic-ap";
+    String USER_ACCESS_TOKEN = "uic-ht_vis";
 
     int COOKIE_TIMEOUT = 4 * 60 * 60;
 
@@ -39,6 +39,8 @@ public interface Consts {
     String CURR_USER_COOKIE="currUserCookie";
 
     String NON_SET="未设置";
+
+    String UN_KNOW="未知";
 
     String USER_ONLINE_TACTICS_LOGIN_FIRST="loginFirst";
 

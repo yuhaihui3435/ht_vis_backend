@@ -2,15 +2,20 @@ package com.ht.vis.core;
 
 
 import com.ht.vis.LoginCtr;
+import com.ht.vis.controller.company.CMeetingController;
 import com.ht.vis.controller.res.ResController;
 import com.ht.vis.controller.role.RoleController;
 import com.ht.vis.controller.ser.SerController;
 import com.ht.vis.controller.user.UserController;
+import com.ht.vis.controller.vehicle.VChangeController;
+import com.ht.vis.controller.vehicle.VInfoController;
+import com.ht.vis.controller.vehicle.VInsuranceController;
 import com.ht.vis.core.CoreData;
 import com.ht.vis.core._MappingKit;
 import com.ht.vis.interceptors.UserInterceptor;
 import com.ht.vis.controller.dd.DdCtr;
 import com.ht.vis.controller.param.ParamCtr;
+import com.ht.vis.model.VInfo;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.druid.filter.stat.StatFilter;
@@ -87,6 +92,10 @@ public class CoreConfig extends JFinalConfig {
 				add("/cmn", CMNCtr.class);
 				add("/", IndexCtr.class);
 				add("/login", LoginCtr.class);
+				add("/cMeeting", CMeetingController.class);
+				add("/vInfo", VInfoController.class);
+				add("/vChange", VChangeController.class);
+				add("/vInsurance", VInsuranceController.class);
 			}
 		});
 	}

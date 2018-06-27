@@ -46,7 +46,8 @@ public class CoreData {
 			list1 = dd.getChildren();
 			CacheKit.put(Consts.CACHE_NAMES.dd.name(), dd.getDict().concat("List"), list1);
 			for (Dd dd1 : list1) {
-				CacheKit.put(Consts.CACHE_NAMES.dd.name(), "id_"+dd.getId(), dd);
+
+				CacheKit.put(Consts.CACHE_NAMES.dd.name(), "id_"+dd1.getId().intValue(), dd1);
 			}
 		}
 	}

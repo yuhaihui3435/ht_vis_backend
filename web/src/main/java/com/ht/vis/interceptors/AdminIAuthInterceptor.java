@@ -22,24 +22,16 @@ import java.math.BigInteger;
  *
  */
 public class AdminIAuthInterceptor implements Interceptor {
-
 	private UserService userService= Duang.duang(UserService.class.getSimpleName(),UserService.class);
-
 	public void intercept(Invocation inv) {
 		CoreController controller = (CoreController) inv.getController();
 		String userId = CookieKit.get(controller, Consts.USER_ACCESS_TOKEN);
 		boolean flag = false;
 		User user = null;
-		if (StrUtil.isNotEmpty(userId)) {
-			flag = true;
+		if (StrUtil.isNotBlank(userId)) {
 			user = userService.findByIdInCache(new Integer(userId));
-			if (user == null) {
-				if (ReqKit.isAjaxRequest(controller.getRequest())) {
-					controller.renderUnauthenticationJSON("sm");
-
-				} else {
-					throw new CoreException("你的账户被停用");
-				}
+			if (user != null) {
+				flag = true;
 			}
 		}
 
@@ -47,21 +39,29 @@ public class AdminIAuthInterceptor implements Interceptor {
 
 			String reqCookieVal=controller.getCookie(Consts.USER_ACCESS_TOKEN);
 			String currCookieVal=CacheKit.get(Consts.CURR_USER_COOKIE,"user_"+userId);
+			if(StrUtil.isBlank(currCookieVal)){
+				if (ReqKit.isAjaxRequest(controller.getRequest())) {
+					controller.renderAuth901(null);
+					return;
+				}else{
+					throw new CoreException(CoreController.ERR_MSG_901);
+				}
+			}
 			if(reqCookieVal.equals(currCookieVal)){
 				inv.invoke();
 			}else{
 				if (ReqKit.isAjaxRequest(controller.getRequest())) {
-					controller.renderAuth900("sm");
+					controller.renderAuth900(null);
 				} else {
-					throw new CoreException("该账户正在其他地方被登录使用");
+					throw new CoreException(CoreController.ERR_MSG_900);
 				}
 			}
 		} else {
 			CookieKit.remove(controller, Consts.USER_ACCESS_TOKEN);
 			if (ReqKit.isAjaxRequest(controller.getRequest())) {
-				controller.renderUnauthenticationJSON("sm");
+				controller.renderAuth401(null);
 			} else {
-				throw new CoreException("身份认证失败，请登录！");
+				throw new CoreException(CoreController.ERR_MSG_401);
 			}
 		}
 	}

@@ -89,20 +89,20 @@ public abstract class BaseVInfo<M extends BaseVInfo<M>> extends CoreModel<M> imp
 		return get("regDate");
 	}
 
-	public void setLine(java.lang.String line) {
+	public void setLine(java.lang.Integer line) {
 		set("line", line);
 	}
 
-	public java.lang.String getLine() {
-		return getStr("line");
+	public java.lang.Integer getLine() {
+		return getInt("line");
 	}
 
-	public void setArea(java.lang.String area) {
+	public void setArea(java.lang.Integer area) {
 		set("area", area);
 	}
 
-	public java.lang.String getArea() {
-		return getStr("area");
+	public java.lang.Integer getArea() {
+		return getInt("area");
 	}
 
 	public void setOpId(java.lang.Integer opId) {
