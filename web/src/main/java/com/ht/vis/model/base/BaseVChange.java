@@ -113,4 +113,12 @@ public abstract class BaseVChange<M extends BaseVChange<M>> extends CoreModel<M>
 		return getInt("opId");
 	}
 
+	public void setChangeDate(java.util.Date changeDate) {
+		set("changeDate", changeDate);
+	}
+
+	public java.util.Date getChangeDate() {
+		return get("changeDate");
+	}
+
 }

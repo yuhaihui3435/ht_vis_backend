@@ -13,7 +13,24 @@ public class VChangeQuery extends CoreQuery {
                 this.licensePlate=licensePlate;
         }
         public java.lang.String getLicensePlate(){
-            return this.licensePlate;
+                return this.licensePlate;
+        }
+        //changeDate比较的开始时间
+        private String beginChangeDate;
+        //changeDate比较的结束时间
+        private String endChangeDate;
+        public String getBeginChangeDate(){
+                return StrUtil.isNotBlank(this.beginChangeDate)?DateKit.getDateTimeBegin(this.beginChangeDate):null;
+        }
+        public void setBeginChangeDate(String begin){
+                this.beginChangeDate=begin;
+        }
+
+        public String getEndChangeDate(){
+                return StrUtil.isNotBlank(this.endChangeDate)?DateKit.getDateTimeEnd(this.endChangeDate):null;
+        }
+        public void setEndChangeDate(String end){
+                this.endChangeDate=end;
         }
 
 

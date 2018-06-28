@@ -121,4 +121,12 @@ public abstract class BaseVInfo<M extends BaseVInfo<M>> extends CoreModel<M> imp
 		return getStr("idcard");
 	}
 
+	public void setStatus(java.lang.String status) {
+		set("status", status);
+	}
+
+	public java.lang.String getStatus() {
+		return getStr("status");
+	}
+
 }

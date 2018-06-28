@@ -4,6 +4,9 @@
 #namespace("serSql")
   #include("ser.sql")
 #end
+#namespace("vInsuranceSql")
+  #include("vInsurance.sql")
+#end
 
 #sql("queryByAndCond")
   select * from #(table) where 1=1

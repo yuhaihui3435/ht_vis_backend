@@ -61,4 +61,7 @@ public class CMeetingController extends CoreController{
         Integer id=getParaToInt("id");
         renderJson(cMeetingService.findOne(id));
     }
+    public void init(){
+        renderJson("");
+    }
 }

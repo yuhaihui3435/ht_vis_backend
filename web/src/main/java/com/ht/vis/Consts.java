@@ -3,6 +3,7 @@ package com.ht.vis;
 import org.jsoup.safety.Whitelist;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -45,6 +46,8 @@ public interface Consts {
     String USER_ONLINE_TACTICS_LOGIN_FIRST="loginFirst";
 
     String USER_ONLINE_TACTICS_AFTER_LOGGING_IN="afterLoggingIn";
+
+    DecimalFormat CURRENCY_FORMAT = new DecimalFormat("#,###.00");
 
 
     enum YORN {

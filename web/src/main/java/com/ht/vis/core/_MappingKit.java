@@ -22,5 +22,8 @@ public class _MappingKit {
 		arp.addMapping("v_info", "id", VInfo.class);
 		arp.addMapping("v_insurance", "id", VInsurance.class);
 		arp.addMapping("v_pic", "id", VPic.class);
+		arp.addMapping("c_department", "id", CDepartment.class);
+		arp.addMapping("c_staff", "id", CStaff.class);
+		arp.addMapping("c_department_staff", "id", CDepartmentStaff.class);
 	}
 }
