@@ -1,5 +1,6 @@
 package com.ht.vis.controller.dd;
 
+import com.ht.vis.core.CoreData;
 import com.jfinal.aop.Before;
 import com.ht.vis.core.CoreController;
 import com.ht.vis.model.Dd;
@@ -16,6 +17,7 @@ public class DdCtr extends CoreController {
         Dd dd=getApModel(Dd.class);
         if(currUser()!=null)dd.setOpId(currUser().getId());
         dd.save();
+        CoreData.loadDd();
         renderSuccessJSON("数据字典新增成功");
     }
     @Before({DdValidator.class})
@@ -23,6 +25,7 @@ public class DdCtr extends CoreController {
         Dd dd=getApModel(Dd.class);
         if(currUser()!=null)dd.setOpId(currUser().getId());
         dd.update();
+        CoreData.loadDd();
         renderSuccessJSON("数据字典修改成功");
     }
 
@@ -30,6 +33,7 @@ public class DdCtr extends CoreController {
         int id=getParaToInt("id");
         Dd dd=Dd.dao.findById(id);
         dd.apDel();
+        CoreData.loadDd();
         renderSuccessJSON("数据字典删除成功");
     }
 

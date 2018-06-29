@@ -3,6 +3,7 @@ package com.ht.vis.core;
 
 import com.ht.vis.LoginCtr;
 import com.ht.vis.controller.company.CDepartmentController;
+import com.ht.vis.controller.company.CInfoController;
 import com.ht.vis.controller.company.CMeetingController;
 import com.ht.vis.controller.company.CStaffController;
 import com.ht.vis.controller.res.ResController;
@@ -100,6 +101,7 @@ public class CoreConfig extends JFinalConfig {
 				add("/vInsurance", VInsuranceController.class);
 				add("/cDepartment", CDepartmentController.class);
 				add("/cStaff", CStaffController.class);
+				add("/cInfo", CInfoController.class);
 
 			}
 		});

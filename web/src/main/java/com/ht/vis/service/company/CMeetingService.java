@@ -15,37 +15,49 @@ public class CMeetingService extends CoreService {
 
     private static CMeeting cMeetingDao = CMeeting.dao;
 
-    public List<CMeeting> findAll(CMeetingQuery cMeetingQuery) {
-        Kv kv = Kv.create();
-        if (StrUtil.isNotBlank(cMeetingQuery.getTitle())) {
-            kv.put("title like", "%" + cMeetingQuery.getTitle() + "%");
+    public List<CMeeting> findAll(CMeetingQuery cMeetingQuery){
+        Kv kv= Kv.create();
+        if(StrUtil.isNotBlank(cMeetingQuery.getTitle())){
+            kv.put("title like","%"+cMeetingQuery.getTitle()+"%");
         }
-        if (StrUtil.isNotBlank(cMeetingQuery.getType())) {
-            kv.put("type=", cMeetingQuery.getType());
+        if(StrUtil.isNotBlank(cMeetingQuery.getType())){
+            kv.put("type=",cMeetingQuery.getType());
         }
-        kv.put("dAt", "");
-        if (StrUtil.isNotBlank(cMeetingQuery.getOrderBy())) {
+        if(StrUtil.isNotBlank(cMeetingQuery.getBeginMAt())){
+            kv.put("mAt >=",cMeetingQuery.getBeginMAt());
+        }
+        if(StrUtil.isNotBlank(cMeetingQuery.getEndMAt())){
+            kv.put("mAt <=",cMeetingQuery.getEndMAt());
+        }
+        kv.put("dAt","");
+        if(StrUtil.isNotBlank(cMeetingQuery.getOrderBy())) {
             kv.put("orderBy", cMeetingQuery.getOrderBy());
         }
-        kv = CMeeting.buildParamMap(CMeeting.class, kv);
+        kv=CMeeting.buildParamMap(CMeeting.class,kv);
         return cMeetingDao.findByAndCond(kv);
     }
 
 
-    public Page<CMeeting> findPage(CMeetingQuery cMeetingQuery) {
-        Kv kv = Kv.create();
-        if (StrUtil.isNotBlank(cMeetingQuery.getTitle())) {
-            kv.put("title like", "%" + cMeetingQuery.getTitle() + "%");
+    public Page<CMeeting> findPage(CMeetingQuery cMeetingQuery){
+        Kv kv= Kv.create();
+        if(StrUtil.isNotBlank(cMeetingQuery.getTitle())){
+            kv.put("title like","%"+cMeetingQuery.getTitle()+"%");
         }
-        if (StrUtil.isNotBlank(cMeetingQuery.getType())) {
-            kv.put("type=", cMeetingQuery.getType());
+        if(StrUtil.isNotBlank(cMeetingQuery.getType())){
+            kv.put("type=",cMeetingQuery.getType());
         }
-        kv.put("dAt", "");
-        if (StrUtil.isNotBlank(cMeetingQuery.getOrderBy())) {
+        if(StrUtil.isNotBlank(cMeetingQuery.getBeginMAt())){
+            kv.put("mAt >=",cMeetingQuery.getBeginMAt());
+        }
+        if(StrUtil.isNotBlank(cMeetingQuery.getEndMAt())){
+            kv.put("mAt <=",cMeetingQuery.getEndMAt());
+        }
+        kv.put("dAt","");
+        if(StrUtil.isNotBlank(cMeetingQuery.getOrderBy())) {
             kv.put("orderBy", cMeetingQuery.getOrderBy());
         }
-        kv = CMeeting.buildParamMap(CMeeting.class, kv);
-        return cMeetingDao.pageByAndCond(kv, cMeetingQuery.getPn(), cMeetingQuery.getPs());
+        kv=CMeeting.buildParamMap(CMeeting.class,kv);
+        return cMeetingDao.pageByAndCond(kv,cMeetingQuery.getPn(),cMeetingQuery.getPs());
     }
 
     public CMeeting findOne(Integer id) {

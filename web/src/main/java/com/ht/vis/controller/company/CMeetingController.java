@@ -1,20 +1,27 @@
 package com.ht.vis.controller.company;
 
+import com.ht.vis.Consts;
 import com.ht.vis.core.CoreController;
 import com.ht.vis.model.CMeeting;
 import com.ht.vis.query.CMeetingQuery;
+import com.ht.vis.query.CStaffQuery;
 import com.ht.vis.service.company.CMeetingService;
+import com.ht.vis.service.company.CStaffService;
 import com.ht.vis.validator.company.CMeetingValidator;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Duang;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.ehcache.CacheKit;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class CMeetingController extends CoreController{
 
     private CMeetingService cMeetingService=Duang.duang(CMeetingService.class.getSimpleName(),CMeetingService.class);
+    private CStaffService cStaffService=Duang.duang(CStaffService.class.getSimpleName(),CStaffService.class);
 
     public void list(){
         CMeetingQuery cMeetingQuery=(CMeetingQuery)getQueryModel(CMeetingQuery.class);
@@ -62,6 +69,9 @@ public class CMeetingController extends CoreController{
         renderJson(cMeetingService.findOne(id));
     }
     public void init(){
-        renderJson("");
+        Map<String,Object> ret=new HashMap<>();
+        ret.put("meetingTypeList", CacheKit.get(Consts.CACHE_NAMES.dd.name(),"meetingTypeList"));
+        ret.put("staffList",cStaffService.findAll(new CStaffQuery()));
+        renderJson(ret);
     }
 }

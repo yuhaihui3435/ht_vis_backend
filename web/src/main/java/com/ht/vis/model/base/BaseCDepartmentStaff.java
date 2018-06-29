@@ -41,12 +41,12 @@ public abstract class BaseCDepartmentStaff<M extends BaseCDepartmentStaff<M>> ex
 		return getInt("jobId");
 	}
 
-	public void setHead(Integer head) {
+	public void setHead(String head) {
 		set("head", head);
 	}
 
-	public Integer getHead() {
-		return getInt("head");
+	public String getHead() {
+		return getStr("head");
 	}
 
 }
