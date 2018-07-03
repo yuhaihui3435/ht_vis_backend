@@ -1,32 +1,28 @@
 package com.ht.vis.controller.user;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import com.ht.vis.model.CInfo;
-import com.ht.vis.query.CInfoQuery;
-import com.ht.vis.service.company.CInfoService;
-import com.jfinal.aop.Clear;
-import com.jfinal.kit.LogKit;
-import com.jfinal.plugin.ehcache.CacheKit;
-import com.jfinal.upload.UploadFile;
-import com.qiniu.common.QiniuException;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ht.vis.Consts;
+import com.ht.vis.core.CoreController;
 import com.ht.vis.interceptors.AdminAAuthInterceptor;
-import com.ht.vis.kits.DateKit;
 import com.ht.vis.kits.QiNiuKit;
-import com.ht.vis.kits._StrKit;
-import com.ht.vis.query.UserQuery;
 import com.ht.vis.kits.ext.BCrypt;
 import com.ht.vis.model.User;
-import com.ht.vis.validator.user.UserValidator;
-import com.jfinal.plugin.activerecord.Page;
-import com.jfinal.aop.Before;
-import com.ht.vis.core.CoreController;
+import com.ht.vis.query.CInfoQuery;
+import com.ht.vis.query.UserQuery;
+import com.ht.vis.service.company.CInfoService;
 import com.ht.vis.service.user.UserService;
+import com.ht.vis.validator.user.UserValidator;
+import com.jfinal.aop.Before;
+import com.jfinal.aop.Clear;
 import com.jfinal.aop.Duang;
+import com.jfinal.plugin.activerecord.Page;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Clear(AdminAAuthInterceptor.class)
 public class UserController extends CoreController{
@@ -43,7 +39,7 @@ public class UserController extends CoreController{
     public void page(){
         UserQuery userQuery=(UserQuery)getQueryModel(UserQuery.class);
         Page<User> ret=userService.findPage(userQuery);
-        renderJson(ret);
+        renderJson(JSON.toJSONString(ret,SerializerFeature.DisableCircularReferenceDetect));
     }
     @Before({UserValidator.class})
     public void save(){
@@ -145,8 +141,15 @@ public class UserController extends CoreController{
     }
     public void init(){
         Map<String,Object> ret=new HashMap<>();
+        if(StrUtil.isBlank(currUser().getCCode()))
         ret.put("cInfoList",cInfoService.findAll(new CInfoQuery()));
         renderJson(ret);
+    }
+
+    public void saveUserCInfo(){
+       User user= getApModel(User.class);
+       user.update();
+       renderSuccessJSON("设置企业信息成功");
     }
 
 }

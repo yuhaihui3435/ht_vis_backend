@@ -6,37 +6,34 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.ht.vis.core.CoreController;
+import com.ht.vis.interceptors.AdminAAuthInterceptor;
+import com.ht.vis.interceptors.AdminIAuthInterceptor;
+import com.ht.vis.interceptors.CInfoInterceptor;
+import com.ht.vis.kits.CookieKit;
+import com.ht.vis.kits.DateKit;
+import com.ht.vis.kits.ReqKit;
+import com.ht.vis.kits.ext.BCrypt;
+import com.ht.vis.model.LogOp;
+import com.ht.vis.model.Role;
+import com.ht.vis.model.User;
+import com.ht.vis.service.res.ResService;
+import com.ht.vis.service.role.RoleService;
+import com.ht.vis.service.ser.SerService;
 import com.jfinal.aop.Clear;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.kit.LogKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.ehcache.CacheKit;
 import com.jfinal.render.JsonRender;
-import com.ht.vis.Consts;
-import com.ht.vis.kits.DateKit;
-import com.ht.vis.kits.ReqKit;
-import com.ht.vis.model.LogOp;
-import com.ht.vis.model.Res;
-import com.ht.vis.model.Role;
-import com.ht.vis.model.User;
-import com.ht.vis.core.CoreController;
-import com.ht.vis.interceptors.AdminAAuthInterceptor;
-import com.ht.vis.interceptors.AdminIAuthInterceptor;
-import com.ht.vis.kits.CookieKit;
-import com.ht.vis.kits.ResKit;
-import com.ht.vis.kits.ext.BCrypt;
-import com.ht.vis.service.res.ResService;
-import com.ht.vis.service.role.RoleService;
-import com.ht.vis.service.ser.SerService;
 
 import java.util.*;
 
 /**
  *  登录请求 处理
  */
-@Clear({AdminIAuthInterceptor.class, AdminAAuthInterceptor.class})
+@Clear({AdminIAuthInterceptor.class, AdminAAuthInterceptor.class,CInfoInterceptor.class})
 public class LoginCtr extends CoreController {
 
     public static final int LOGIN_MAX_RETRY_COUNT = 5;//密码重试最大次数

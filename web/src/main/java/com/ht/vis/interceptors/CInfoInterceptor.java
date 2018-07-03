@@ -21,21 +21,26 @@ public class CInfoInterceptor implements Interceptor {
 
         CoreController controller = (CoreController)invocation.getController();
         User currUser=controller.getAttr(Consts.CURR_USER);
-        String cCode= currUser.getCCode();
-        if(StrUtil.isNotBlank(cCode)) {
-            CInfo cInfo = cInfoService.findByCodeInCache(cCode);
+        if(currUser!=null) {
+            String cCode = currUser.getCCode();
+            if (StrUtil.isNotBlank(cCode)) {
+                CInfo cInfo = cInfoService.findByCodeInCache(cCode);
 
-            if (cInfo.getAccountExpiryDate()!=null&&DateUtil.date().after(cInfo.getAccountExpiryDate())) {
-                controller.setAttr("cCode",cInfo.getCode());
-                controller.setAttr(Consts.CURR_USER_CINFO, cInfo);
-                invocation.invoke();
-            } else {
-                if (ReqKit.isAjaxRequest(controller.getRequest())) {
-                    controller.renderAuth999(ERR_MSG);
+                if (cInfo.getAccountExpiryDate() != null && DateUtil.date().after(cInfo.getAccountExpiryDate())) {
+                    controller.setAttr("cCode", cInfo.getCode());
+                    controller.setAttr(Consts.CURR_USER_CINFO, cInfo);
+                    invocation.invoke();
                 } else {
-                    throw new CoreException(ERR_MSG);
-                }
+                    if (ReqKit.isAjaxRequest(controller.getRequest())) {
+                        controller.renderAuth999(ERR_MSG);
+                        return;
+                    } else {
+                        throw new CoreException(ERR_MSG);
+                    }
 
+                }
+            } else {
+                invocation.invoke();
             }
         }else{
             invocation.invoke();

@@ -1,8 +1,6 @@
 package com.ht.vis.model;
 
-import cn.hutool.core.util.StrUtil;
 import com.ht.vis.Consts;
-import com.ht.vis.kits.DateKit;
 import com.ht.vis.model.base.BaseVInfo;
 import com.jfinal.plugin.ehcache.CacheKit;
 
@@ -37,6 +35,10 @@ public class VInfo extends BaseVInfo<VInfo> {
         }else{
             return Consts.UN_KNOW;
         }
+    }
+
+    public CInfo getCInfo(){
+        return CInfo.dao.findByCodeInCache(getCCode());
     }
 
 }

@@ -1,11 +1,14 @@
 package com.ht.vis.controller.vehicle;
 
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ht.vis.Consts;
 import com.ht.vis.core.CoreController;
-import com.ht.vis.model.Dd;
 import com.ht.vis.model.VInfo;
+import com.ht.vis.query.CInfoQuery;
 import com.ht.vis.query.VInfoQuery;
+import com.ht.vis.service.company.CInfoService;
 import com.ht.vis.service.vehicle.VInfoService;
 import com.ht.vis.validator.vehicle.VInfoValidator;
 import com.jfinal.aop.Before;
@@ -21,6 +24,7 @@ import java.util.Map;
 public class VInfoController extends CoreController {
 
     private VInfoService vInfoService = Duang.duang(VInfoService.class.getSimpleName(), VInfoService.class);
+    private CInfoService cInfoService=Duang.duang(CInfoService.class.getSimpleName(),CInfoService.class);
 
     public void list() {
         VInfoQuery vInfoQuery = (VInfoQuery) getQueryModel(VInfoQuery.class);
@@ -31,7 +35,7 @@ public class VInfoController extends CoreController {
     public void page() {
         VInfoQuery vInfoQuery = (VInfoQuery) getQueryModel(VInfoQuery.class);
         Page<VInfo> ret = vInfoService.findPage(vInfoQuery);
-        renderJson(ret);
+        renderJson(JSON.toJSONString(ret,SerializerFeature.DisableCircularReferenceDetect));
     }
 
     @Before({VInfoValidator.class})
@@ -82,6 +86,8 @@ public class VInfoController extends CoreController {
         Map<String, Object> ret = new HashMap<>();
         ret.put("sBusAreaList", CacheKit.get(Consts.CACHE_NAMES.dd.name(), "sBusAreaList"));
         ret.put("busLineList", CacheKit.get(Consts.CACHE_NAMES.dd.name(), "busLineList"));
+        if(StrUtil.isBlank(currUser().getCCode()))
+        ret.put("cInfoList",cInfoService.findAll(new CInfoQuery()));
         renderJson(ret);
     }
 }

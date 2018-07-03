@@ -70,5 +70,15 @@ public class VInfoQuery extends CoreQuery {
             return this.idcard;
         }
 
+        private String cCode;
+
+        public String getCCode() {
+                return cCode;
+        }
+
+        public void setCCode(String cCode) {
+                this.cCode = cCode;
+        }
+
 
 }

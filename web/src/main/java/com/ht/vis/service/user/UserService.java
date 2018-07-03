@@ -1,16 +1,17 @@
 package com.ht.vis.service.user;
-import com.jfinal.plugin.ehcache.CacheKit;
+import cn.hutool.core.util.StrUtil;
 import com.ht.vis.Consts;
 import com.ht.vis.core.CoreService;
 import com.ht.vis.model.User;
 import com.ht.vis.model.UserRole;
 import com.ht.vis.query.UserQuery;
-import cn.hutool.core.util.StrUtil;
 import com.jfinal.aop.Before;
-import com.jfinal.plugin.activerecord.tx.Tx;
 import com.jfinal.kit.Kv;
-import java.util.*;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.tx.Tx;
+import com.jfinal.plugin.ehcache.CacheKit;
+
+import java.util.List;
 
 public class UserService extends CoreService{
 
@@ -172,6 +173,6 @@ public class UserService extends CoreService{
     }
 
     public User findByIdInCache(Integer userId){
-        return User.dao.findFirstByCache(Consts.CACHE_NAMES.user.name(), "id_"+userId, "select id,loginname,nickname,phone,email,avatar,status,lAt,opId,cAt,dAt,lastLoginTime,lastLoginIp from s_user where status='0' and id=? and dAt is null", userId);
+        return User.dao.findFirstByCache(Consts.CACHE_NAMES.user.name(), "id_"+userId, "select id,loginname,nickname,phone,email,avatar,status,lAt,opId,cAt,dAt,lastLoginTime,lastLoginIp,cCode from s_user where status='0' and id=? and dAt is null", userId);
     }
 }

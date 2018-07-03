@@ -3,7 +3,6 @@ package com.ht.vis.service.vehicle;
 import cn.hutool.core.util.StrUtil;
 import com.ht.vis.core.CoreService;
 import com.ht.vis.model.VInfo;
-import com.ht.vis.model.VInsurance;
 import com.ht.vis.query.VInfoQuery;
 import com.jfinal.aop.Before;
 import com.jfinal.kit.Kv;
@@ -67,6 +66,9 @@ public class VInfoService extends CoreService {
         }
         if (StrUtil.isNotBlank(vInfoQuery.getType())) {
             kv.put("type=", vInfoQuery.getType());
+        }
+        if (StrUtil.isNotBlank(vInfoQuery.getCCode())) {
+            kv.put("cCode=", vInfoQuery.getCCode());
         }
         if (StrUtil.isNotBlank(vInfoQuery.getTel())) {
             kv.put("tel=", vInfoQuery.getTel());
