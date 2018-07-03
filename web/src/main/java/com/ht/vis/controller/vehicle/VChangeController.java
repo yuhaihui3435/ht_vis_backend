@@ -37,6 +37,7 @@ public class VChangeController extends CoreController {
         VChange vChange = getApModel(VChange.class);
         if (currUser() != null) {
             vChange.setOpId(currUser().getId());
+            vChange.setCCode(currUser().getCCode());
         }
         vChangeService.save(vChange);
         renderSuccessJSON("过户记录新增成功");

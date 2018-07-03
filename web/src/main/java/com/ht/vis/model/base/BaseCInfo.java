@@ -145,4 +145,29 @@ public abstract class BaseCInfo<M extends BaseCInfo<M>> extends CoreModel<M> imp
 		return getInt("opId");
 	}
 
+	public void setGrade(java.lang.String grade) {
+		set("grade", grade);
+	}
+
+	public java.lang.String getGrade() {
+		return getStr("grade");
+	}
+
+	public void setExpiryDate(java.util.Date expiryDate) {
+		set("expiryDate", expiryDate);
+	}
+
+	public java.util.Date getExpiryDate() {
+		return get("expiryDate");
+	}
+    public void setAccountExpiryDate(java.util.Date accountExpiryDate) {
+        set("accountExpiryDate", accountExpiryDate);
+    }
+
+    public java.util.Date getAccountExpiryDate() {
+        return get("accountExpiryDate");
+    }
+
+
+
 }

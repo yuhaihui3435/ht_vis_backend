@@ -13,6 +13,7 @@ import com.jfinal.plugin.ehcache.CacheKit;
 public class CInfo extends BaseCInfo<CInfo> {
     public static final CInfo dao = new CInfo().dao();
 
+
     public String getCTypeStr() {
         if(getCType()!=null){
             Dd dd= CacheKit.get(Consts.CACHE_NAMES.dd.name(),"id_"+getCType().intValue());
@@ -20,6 +21,24 @@ public class CInfo extends BaseCInfo<CInfo> {
         }else{
         return Consts.NON_SET;
         }
+    }
+
+    public String getGradeStr(){
+        if("0".equals(getGrade()))
+            return "未评级";
+        if("1".equals(getGrade()))
+            return "一级";
+        if("2".equals(getGrade()))
+            return "二级";
+        if("3".equals(getGrade()))
+            return "三级";
+        return null;
+    }
+
+    public CInfo findByCodeInCache(String code){
+        if(StrUtil.isBlank(code))return null;
+        String sql="select * from c_info where code=? ";
+        return  dao.findFirstByCache(CInfo.class.getSimpleName(),"code_"+code,sql,code);
     }
 
 }

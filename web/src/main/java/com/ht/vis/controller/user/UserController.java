@@ -1,6 +1,9 @@
 package com.ht.vis.controller.user;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
+import com.ht.vis.model.CInfo;
+import com.ht.vis.query.CInfoQuery;
+import com.ht.vis.service.company.CInfoService;
 import com.jfinal.aop.Clear;
 import com.jfinal.kit.LogKit;
 import com.jfinal.plugin.ehcache.CacheKit;
@@ -29,6 +32,7 @@ import java.util.*;
 public class UserController extends CoreController{
 
     private UserService userService=Duang.duang(UserService.class.getSimpleName(),UserService.class);
+    private CInfoService cInfoService=Duang.duang(CInfoService.class.getSimpleName(),CInfoService.class);
 
     public void list(){
         UserQuery userQuery=(UserQuery)getQueryModel(UserQuery.class);
@@ -138,6 +142,11 @@ public class UserController extends CoreController{
         user.setPassword(BCrypt.hashpw(newPwd,user.getSalt()));
         userService.update(user);
         renderSuccessJSON("重置密码成功",newPwd);
+    }
+    public void init(){
+        Map<String,Object> ret=new HashMap<>();
+        ret.put("cInfoList",cInfoService.findAll(new CInfoQuery()));
+        renderJson(ret);
     }
 
 }

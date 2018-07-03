@@ -147,4 +147,12 @@ public abstract class BaseUser<M extends BaseUser<M>> extends CoreModel<M> imple
 		return getStr("loginIp");
 	}
 
+	public void setCCode(String cCode) {
+		set("cCode", cCode);
+	}
+
+	public String getCCode() {
+		return getStr("cCode");
+	}
+
 }

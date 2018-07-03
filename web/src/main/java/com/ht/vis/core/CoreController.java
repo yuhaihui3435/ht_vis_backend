@@ -33,6 +33,7 @@ public class CoreController extends Controller {
     public static final String ERR_MSG_900="您的账户正在其他地方进行登录。";
     public static final String ERR_MSG_901="您的账户因为异常原因被强制退出，请重新登录。";
 
+
     /**
      * @param @return 参数说明
      * @return int    返回类型
@@ -126,6 +127,11 @@ public class CoreController extends Controller {
     public void renderAuth901(String msg){
         getResponse().setStatus(901);
         renderFailJSON(StrUtil.isBlank(msg)?ERR_MSG_901:msg);
+        return;
+    }
+    public void renderAuth999(String msg){
+        getResponse().setStatus(999);
+        renderFailJSON(StrUtil.isBlank(msg)?"":msg);
         return;
     }
     private static  ValueFilter filter = new ValueFilter() {

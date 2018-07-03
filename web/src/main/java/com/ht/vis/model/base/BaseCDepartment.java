@@ -57,4 +57,12 @@ public abstract class BaseCDepartment<M extends BaseCDepartment<M>> extends Core
 		return get("dAt");
 	}
 
+	public void setCCode(String cCode) {
+		set("cCode", cCode);
+	}
+
+	public String getCCode() {
+		return getStr("cCode");
+	}
+
 }

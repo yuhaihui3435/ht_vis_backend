@@ -17,11 +17,9 @@ public class _MappingKit {
 		arp.addMapping("s_user_role", "id", UserRole.class);
 		arp.addMapping("s_dd","id",Dd.class);
 		arp.addMapping("c_meeting", "id", CMeeting.class);
-		arp.addMapping("c_meeting_pic", "id", CMeetingPic.class);
 		arp.addMapping("v_change", "id", VChange.class);
 		arp.addMapping("v_info", "id", VInfo.class);
 		arp.addMapping("v_insurance", "id", VInsurance.class);
-		arp.addMapping("v_pic", "id", VPic.class);
 		arp.addMapping("c_department", "id", CDepartment.class);
 		arp.addMapping("c_staff", "id", CStaff.class);
 		arp.addMapping("c_department_staff", "id", CDepartmentStaff.class);

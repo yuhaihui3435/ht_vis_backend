@@ -121,4 +121,12 @@ public abstract class BaseVChange<M extends BaseVChange<M>> extends CoreModel<M>
 		return get("changeDate");
 	}
 
+	public void setCCode(String cCode) {
+		set("cCode", cCode);
+	}
+
+	public String getCCode() {
+		return getStr("cCode");
+	}
+
 }

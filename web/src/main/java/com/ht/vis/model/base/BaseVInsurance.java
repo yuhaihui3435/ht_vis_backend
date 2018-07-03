@@ -89,4 +89,12 @@ public abstract class BaseVInsurance<M extends BaseVInsurance<M>> extends CoreMo
 		return getInt("opId");
 	}
 
+	public void setCCode(String cCode) {
+		set("cCode", cCode);
+	}
+
+	public String getCCode() {
+		return getStr("cCode");
+	}
+
 }

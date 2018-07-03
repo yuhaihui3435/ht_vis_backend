@@ -97,4 +97,12 @@ public abstract class BaseCMeeting<M extends BaseCMeeting<M>> extends CoreModel<
 		return get("mAt");
 	}
 
+	public void setCCode(String cCode) {
+		set("cCode", cCode);
+	}
+
+	public String getCCode() {
+		return getStr("cCode");
+	}
+
 }

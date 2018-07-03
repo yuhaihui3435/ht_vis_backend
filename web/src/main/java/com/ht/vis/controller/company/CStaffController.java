@@ -39,6 +39,7 @@ public class CStaffController extends CoreController{
     @Before({CStaffValidator.class})
     public void save(){
         CStaff cStaff=getApModel(CStaff.class);
+        cStaff.setCCode(currUser().getCCode());
         cStaffService.save(cStaff);
         renderSuccessJSON("员工新增成功");
     }

@@ -62,5 +62,9 @@ public class User extends BaseUser<User> {
 		return roleNames;
 	}
 
+	public CInfo getCInfo(){
+		return CInfo.dao.findByCodeInCache(getCCode());
+	}
+
 
 }

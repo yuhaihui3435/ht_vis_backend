@@ -15,7 +15,7 @@ public class CInfoValidator extends CoreValidator {
         CInfo cInfo = controller.getModel(CInfo.class, "", true);
         String ak = getActionKey();
         List<CInfo> list = null;
-        if (ak.contains("cInfo/save") || ak.contains("cInfo/update")) {
+        if (ak.equals("/cInfo/save") || ak.equals("/cInfo/update")) {
 
             if (StrUtil.isBlank(cInfo.getName())) {
                 addError(Consts.REQ_JSON_CODE.fail.name(), "名字值不能为空");
@@ -95,25 +95,36 @@ public class CInfoValidator extends CoreValidator {
             }
 
 
-        } else if (ak.contains("cInfo/del") || ak.contains("cInfo/logicDel")) {
+            if (cInfo.getBusNum() == null) {
+                addError(Consts.REQ_JSON_CODE.fail.name(), "车辆数量值不能为空");
+                return;
+            }
+
+
+        } else if (ak.equals("/cInfo/del") || ak.contains("/cInfo/logicDel")) {
             String ids = controller.getPara("ids");
             if (StrUtil.isBlank(ids)) {
                 addError(Consts.REQ_JSON_CODE.fail.name(), "缺少删除数据的关键数据");
                 return;
             }
         }
-        if (ak.contains("cInfo/save")) {
-//            list = CInfo.dao.findByPropEQWithDat("name", cInfo.getName());
-//            if (!list.isEmpty()) {
-//                addError(Consts.REQ_JSON_CODE.fail.name(), "名字值重复");
-//                return;
-//            }
-//            list = CInfo.dao.findByPropEQWithDat("code", cInfo.getCode());
-//            if (!list.isEmpty()) {
-//                addError(Consts.REQ_JSON_CODE.fail.name(), "企业编号值重复");
-//                return;
-//            }
-        } else if (ak.contains("cInfo/update")) {
+        if (ak.equals("/cInfo/save")) {
+            list = CInfo.dao.findByPropEQWithDat("name", cInfo.getName());
+            if (!list.isEmpty()) {
+                addError(Consts.REQ_JSON_CODE.fail.name(), "名字值重复");
+                return;
+            }
+            list = CInfo.dao.findByPropEQWithDat("code", cInfo.getCode());
+            if (!list.isEmpty()) {
+                addError(Consts.REQ_JSON_CODE.fail.name(), "企业编号值重复");
+                return;
+            }
+            list = CInfo.dao.findByPropEQWithDat("cNo", cInfo.getCNo());
+            if (!list.isEmpty()) {
+                addError(Consts.REQ_JSON_CODE.fail.name(), "企业统一代码证号值重复");
+                return;
+            }
+        } else if (ak.equals("/cInfo/update")) {
 
             list = CInfo.dao.findByPropEQAndIdNEQWithDat("name", cInfo.getName(), cInfo.getId());
             if (!list.isEmpty()) {
@@ -124,6 +135,12 @@ public class CInfoValidator extends CoreValidator {
             list = CInfo.dao.findByPropEQAndIdNEQWithDat("code", cInfo.getCode(), cInfo.getId());
             if (!list.isEmpty()) {
                 addError(Consts.REQ_JSON_CODE.fail.name(), "企业编号值重复");
+                return;
+            }
+
+            list = CInfo.dao.findByPropEQAndIdNEQWithDat("cNo", cInfo.getCNo(), cInfo.getId());
+            if (!list.isEmpty()) {
+                addError(Consts.REQ_JSON_CODE.fail.name(), "企业统一代码证号值重复");
                 return;
             }
         }

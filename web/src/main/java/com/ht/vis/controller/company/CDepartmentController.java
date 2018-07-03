@@ -32,6 +32,7 @@ public class CDepartmentController extends CoreController{
     @Before({CDepartmentValidator.class})
     public void save(){
         CDepartment cDepartment=getApModel(CDepartment.class);
+        cDepartment.setCCode(currUser().getCCode());
         cDepartmentService.save(cDepartment);
         renderSuccessJSON("部门新增成功");
     }

@@ -65,4 +65,12 @@ public abstract class BaseCStaff<M extends BaseCStaff<M>> extends CoreModel<M> i
 		return get("lAt");
 	}
 
+	public void setCCode(String cCode) {
+		set("cCode", cCode);
+	}
+
+	public String getCCode() {
+		return getStr("cCode");
+	}
+
 }

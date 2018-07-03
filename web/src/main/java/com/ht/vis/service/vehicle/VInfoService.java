@@ -101,13 +101,13 @@ public class VInfoService extends CoreService {
     @Before({Tx.class})
     public void save(VInfo vInfo) {
         vInfo.save();
-        CacheKit.remove(VInfo.class.getName(),CACHEKEY_ALLVINFO);
+        CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO);
     }
 
     @Before({Tx.class})
     public void update(VInfo vInfo) {
         vInfo.update();
-        CacheKit.remove(VInfo.class.getName(),CACHEKEY_ALLVINFO);
+        CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO);
     }
 
     @Before({Tx.class})
@@ -119,14 +119,14 @@ public class VInfoService extends CoreService {
         }
 
         vInfo.apDel();
-        CacheKit.remove(VInfo.class.getName(),CACHEKEY_ALLVINFO);
+        CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO);
     }
 
     @Before({Tx.class})
     public void del(Integer id) {
         VInfo vInfo = findOne(id);
         vInfo.delete();
-        CacheKit.remove(VInfo.class.getName(),CACHEKEY_ALLVINFO);
+        CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO);
     }
 
     @Before({Tx.class})
@@ -136,7 +136,7 @@ public class VInfoService extends CoreService {
                 logicDel(id, opId);
             }
         }
-        CacheKit.remove(VInfo.class.getName(),CACHEKEY_ALLVINFO);
+        CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO);
     }
 
     @Before({Tx.class})
@@ -146,7 +146,7 @@ public class VInfoService extends CoreService {
                 del(id);
             }
         }
-        CacheKit.remove(VInfo.class.getName(),CACHEKEY_ALLVINFO);
+        CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO);
     }
     //查询所有车牌照号缓存
     public List<VInfo> findAllInCache(){

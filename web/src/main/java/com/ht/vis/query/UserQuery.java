@@ -60,6 +60,13 @@ public class UserQuery extends CoreQuery {
 	public void setEndCAt(String end){
 		this.endCAt=end;
 	}
+	private String cCode;
 
+	public String getCCode() {
+		return cCode;
+	}
 
+	public void setCCode(String cCode) {
+		this.cCode = cCode;
+	}
 }

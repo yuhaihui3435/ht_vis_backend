@@ -23,6 +23,8 @@ public interface Consts {
 
     String CURR_USER = "currUser";
 
+    String CURR_USER_CINFO = "currUserCInfo";
+
     String CURR_USER_MER = "currUserMer";
 
     String CURR_USER_ROLES = "currUserRoles";
@@ -129,7 +131,7 @@ public interface Consts {
     }
 
     enum CACHE_NAMES {
-        paramCache, userRoles, user, userReses, dd, login,userSers,allSer
+        paramCache, userRoles, user, userReses, dd, login,userSers,allSer,cInfo
     }
 
 }

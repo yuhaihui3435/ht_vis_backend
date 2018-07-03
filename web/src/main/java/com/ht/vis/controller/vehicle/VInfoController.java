@@ -39,6 +39,7 @@ public class VInfoController extends CoreController {
         VInfo vInfo = getApModel(VInfo.class);
         if (currUser() != null) {
             vInfo.setOpId(currUser().getId());
+            vInfo.setCCode(currUser().getCCode());
         }
         vInfo.setLicensePlate(vInfo.getLicensePlate().toUpperCase());
         vInfoService.save(vInfo);

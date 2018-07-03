@@ -49,4 +49,12 @@ public abstract class BaseCDepartmentStaff<M extends BaseCDepartmentStaff<M>> ex
 		return getStr("head");
 	}
 
+	public void setCCode(String cCode) {
+		set("cCode", cCode);
+	}
+
+	public String getCCode() {
+		return getStr("cCode");
+	}
+
 }

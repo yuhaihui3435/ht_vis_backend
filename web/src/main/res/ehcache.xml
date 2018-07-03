@@ -108,5 +108,12 @@
            diskPersistent="true"
            memoryStoreEvictionPolicy="FIFO"
     />
+    <cache name="CInfo"
+           maxEntriesLocalHeap="50000"
+           eternal="true"
+           overflowToDisk="true"
+           diskPersistent="true"
+           memoryStoreEvictionPolicy="FIFO"
+    />
 
 </ehcache>

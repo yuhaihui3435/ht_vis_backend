@@ -129,4 +129,12 @@ public abstract class BaseVInfo<M extends BaseVInfo<M>> extends CoreModel<M> imp
 		return getStr("status");
 	}
 
+	public void setCCode(String cCode) {
+		set("cCode", cCode);
+	}
+
+	public String getCCode() {
+		return getStr("cCode");
+	}
+
 }

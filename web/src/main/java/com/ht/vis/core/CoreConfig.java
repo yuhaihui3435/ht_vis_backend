@@ -15,7 +15,7 @@ import com.ht.vis.controller.vehicle.VInfoController;
 import com.ht.vis.controller.vehicle.VInsuranceController;
 import com.ht.vis.core.CoreData;
 import com.ht.vis.core._MappingKit;
-import com.ht.vis.interceptors.UserInterceptor;
+import com.ht.vis.interceptors.*;
 import com.ht.vis.controller.dd.DdCtr;
 import com.ht.vis.controller.param.ParamCtr;
 import com.ht.vis.model.VInfo;
@@ -45,9 +45,6 @@ import com.ht.vis.CMNCtr;
 import com.ht.vis.Consts;
 import com.ht.vis.IndexCtr;
 import com.ht.vis.HomeCtr;
-import com.ht.vis.interceptors.AdminAAuthInterceptor;
-import com.ht.vis.interceptors.AdminIAuthInterceptor;
-import com.ht.vis.interceptors.ExceptionInterceptor;
 import com.ht.vis.kits.DateKit;
 import com.ht.vis.kits.ResKit;
 import cn.hutool.core.collection.CollectionUtil;
@@ -171,6 +168,7 @@ public class CoreConfig extends JFinalConfig {
 		interceptors.add(new AdminIAuthInterceptor());
 		interceptors.add(new AdminAAuthInterceptor());
 		interceptors.add(new UserInterceptor());
+		interceptors.add(new CInfoInterceptor());
 	}
 
 	@Override

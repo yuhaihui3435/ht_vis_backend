@@ -1,10 +1,15 @@
 package com.ht.vis.controller.company;
 
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import com.ht.vis.Consts;
 import com.ht.vis.core.CoreController;
+import com.ht.vis.kits.ext.BCrypt;
 import com.ht.vis.model.CInfo;
+import com.ht.vis.model.User;
 import com.ht.vis.query.CInfoQuery;
 import com.ht.vis.service.company.CInfoService;
+import com.ht.vis.service.user.UserService;
 import com.ht.vis.validator.company.CInfoValidator;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Duang;
@@ -19,7 +24,7 @@ import java.util.Map;
 public class CInfoController extends CoreController {
 
     private CInfoService cInfoService = Duang.duang(CInfoService.class.getSimpleName(), CInfoService.class);
-
+    private UserService userService=Duang.duang(UserService.class.getSimpleName(),UserService.class);
     public void list() {
         CInfoQuery cInfoQuery = (CInfoQuery) getQueryModel(CInfoQuery.class);
         List<CInfo> ret = cInfoService.findAll(cInfoQuery);
@@ -38,10 +43,8 @@ public class CInfoController extends CoreController {
         if (currUser() != null) {
             cInfo.setOpId(currUser().getId());
         }
-        if (cInfo.getId() == null)
-            cInfoService.save(cInfo);
-        else
-            cInfoService.update(cInfo);
+        cInfoService.saveAndCreateUser(cInfo);
+
         renderSuccessJSON("企业信息保存成功");
     }
 
@@ -79,6 +82,15 @@ public class CInfoController extends CoreController {
     public void init() {
         Map<String, Object> ret = new HashMap<>();
         ret.put("cTypeList", CacheKit.get(Consts.CACHE_NAMES.dd.name(),"cTypeList"));
+        renderJson(ret);
+    }
+
+    public void getCurrCInfo(){
+        String cCode=currUser().getCCode();
+        CInfo ret=null;
+        if(StrUtil.isNotBlank(cCode)){
+            ret=cInfoService.findByCode(cCode);
+        }
         renderJson(ret);
     }
 }

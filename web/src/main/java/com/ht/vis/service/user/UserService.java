@@ -24,8 +24,11 @@ public class UserService extends CoreService{
         if(StrUtil.isNotBlank(userQuery.getNickname())){
             kv.put("nickname like","%"+userQuery.getNickname()+"%");
         }
-        if(StrUtil.isNotBlank(userQuery.getPhone())){
+        if(StrUtil.isNotBlank(userQuery.getCCode())){
             kv.put("phone=",userQuery.getPhone());
+        }
+        if(StrUtil.isNotBlank(userQuery.getPhone())){
+            kv.put("cCode=",userQuery.getCCode());
         }
         if(StrUtil.isNotBlank(userQuery.getEmail())){
             kv.put("email=",userQuery.getEmail());
@@ -52,6 +55,9 @@ public class UserService extends CoreService{
         Kv kv= Kv.create();
         if(StrUtil.isNotBlank(userQuery.getLoginname())){
             kv.put("loginname like","%"+userQuery.getLoginname()+"%");
+        }
+        if(StrUtil.isNotBlank(userQuery.getCCode())){
+            kv.put("cCode=",userQuery.getCCode());
         }
         if(StrUtil.isNotBlank(userQuery.getNickname())){
             kv.put("nickname like","%"+userQuery.getNickname()+"%");
