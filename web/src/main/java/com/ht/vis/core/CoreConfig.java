@@ -13,6 +13,7 @@ import com.ht.vis.controller.user.UserController;
 import com.ht.vis.controller.vehicle.VChangeController;
 import com.ht.vis.controller.vehicle.VInfoController;
 import com.ht.vis.controller.vehicle.VInsuranceController;
+import com.ht.vis.controller.vehicle.VLineController;
 import com.ht.vis.core.CoreData;
 import com.ht.vis.core._MappingKit;
 import com.ht.vis.interceptors.*;
@@ -99,6 +100,7 @@ public class CoreConfig extends JFinalConfig {
 				add("/cDepartment", CDepartmentController.class);
 				add("/cStaff", CStaffController.class);
 				add("/cInfo", CInfoController.class);
+				add("/vLine", VLineController.class);
 
 			}
 		});

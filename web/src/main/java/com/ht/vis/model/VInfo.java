@@ -13,9 +13,15 @@ public class VInfo extends BaseVInfo<VInfo> {
 
     public String getTypeStr() {
         if ("0".equals(getType()))
-            return "公交";
+            return "班车客运";
         if ("1".equals(getType()))
             return "校车";
+        if ("2".equals(getType()))
+            return "旅游客运";
+        if ("3".equals(getType()))
+            return "包车客运";
+        if ("4".equals(getType()))
+            return "出租车客运";
         return null;
     }
 

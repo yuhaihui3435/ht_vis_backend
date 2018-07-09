@@ -43,8 +43,12 @@ public class VInfoController extends CoreController {
         VInfo vInfo = getApModel(VInfo.class);
         if (currUser() != null) {
             vInfo.setOpId(currUser().getId());
-            vInfo.setCCode(currUser().getCCode());
+            if(StrUtil.isNotBlank(currUser().getCCode())){
+                vInfo.setCCode(currUser().getCCode());
+            }
         }
+
+
         vInfo.setLicensePlate(vInfo.getLicensePlate().toUpperCase());
         vInfoService.save(vInfo);
         renderSuccessJSON("车辆信息新增成功");
@@ -55,6 +59,9 @@ public class VInfoController extends CoreController {
         VInfo vInfo = getApModel(VInfo.class);
         if (currUser() != null) {
             vInfo.setOpId(currUser().getId());
+            if(StrUtil.isNotBlank(currUser().getCCode())){
+                vInfo.setCCode(currUser().getCCode());
+            }
         }
         vInfo.setLicensePlate(vInfo.getLicensePlate().toUpperCase());
         vInfoService.update(vInfo);
