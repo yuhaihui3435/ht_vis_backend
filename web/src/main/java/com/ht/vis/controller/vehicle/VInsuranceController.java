@@ -1,8 +1,12 @@
 package com.ht.vis.controller.vehicle;
 
+import cn.hutool.core.util.StrUtil;
 import com.ht.vis.core.CoreController;
+import com.ht.vis.model.CInfo;
 import com.ht.vis.model.VInsurance;
+import com.ht.vis.query.CInfoQuery;
 import com.ht.vis.query.VInsuranceQuery;
+import com.ht.vis.service.company.CInfoService;
 import com.ht.vis.service.vehicle.VInfoService;
 import com.ht.vis.service.vehicle.VInsuranceService;
 import com.ht.vis.validator.vehicle.VInsuranceValidator;
@@ -19,6 +23,7 @@ public class VInsuranceController extends CoreController {
 
     private VInsuranceService vInsuranceService = Duang.duang(VInsuranceService.class.getSimpleName(), VInsuranceService.class);
     private VInfoService vInfoService = Duang.duang(VInfoService.class.getSimpleName(), VInfoService.class);
+    private CInfoService cInfoService=Duang.duang(CInfoService.class.getSimpleName(),CInfoService.class);
 
     public void list() {
         VInsuranceQuery vInsuranceQuery = (VInsuranceQuery) getQueryModel(VInsuranceQuery.class);
@@ -76,7 +81,13 @@ public class VInsuranceController extends CoreController {
 
     public void init() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put(VInfoService.CACHEKEY_ALLVINFO, vInfoService.findAllInCache());
+        if(StrUtil.isNotBlank(currUser().getCCode())){
+            ret.put(VInfoService.CACHEKEY_ALLVINFO, vInfoService.findAllByCCodeInCache(currUser().getCCode()));
+        }else {
+//            List<CInfo> allCInfoList=cInfoService.findAll(new CInfoQuery());
+//            ret.put("cInfoList",allCInfoList);
+            ret.put(VInfoService.CACHEKEY_ALLVINFO, vInfoService.findAllInCache());
+        }
         renderJson(ret);
     }
 

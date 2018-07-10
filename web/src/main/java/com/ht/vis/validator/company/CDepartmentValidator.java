@@ -5,6 +5,7 @@ import com.jfinal.core.Controller;
 import com.ht.vis.Consts;
 import com.ht.vis.core.CoreValidator;
 import com.ht.vis.model.CDepartment;
+import com.jfinal.kit.Kv;
 
 import java.util.List;
 
@@ -17,6 +18,10 @@ public class CDepartmentValidator extends CoreValidator {
         List<CDepartment> list = null;
         if (ak.contains("cDepartment/save") || ak.contains("cDepartment/update")) {
 
+            if (StrUtil.isBlank(cDepartment.getCCode())) {
+                addError(Consts.REQ_JSON_CODE.fail.name(), "企业不能为空");
+                return;
+            }
             if (StrUtil.isBlank(cDepartment.getName())) {
                 addError(Consts.REQ_JSON_CODE.fail.name(), "名称值不能为空");
                 return;
@@ -51,25 +56,44 @@ public class CDepartmentValidator extends CoreValidator {
             }
         }
         if (ak.contains("cDepartment/save")) {
-            list = CDepartment.dao.findByPropEQWithDat("name", cDepartment.getName());
+            Kv kv= Kv.create();
+            kv.put("cCode=",cDepartment.getCCode());
+            kv.put("name=",cDepartment.getName());
+            kv=CDepartment.buildParamMap(CDepartment.class,kv);
+            list=CDepartment.dao.findByAndCond(kv);
             if (!list.isEmpty()) {
                 addError(Consts.REQ_JSON_CODE.fail.name(), "名称值重复");
                 return;
             }
-            list = CDepartment.dao.findByPropEQWithDat("code", cDepartment.getCode());
+
+            kv.clear();
+            kv.put("cCode=",cDepartment.getCCode());
+            kv.put("code=",cDepartment.getCode());
+            kv=CDepartment.buildParamMap(CDepartment.class,kv);
+            list = CDepartment.dao.findByAndCond(kv);
             if (!list.isEmpty()) {
                 addError(Consts.REQ_JSON_CODE.fail.name(), "编号值重复");
                 return;
             }
         } else if (ak.contains("cDepartment/update")) {
 
-            list = CDepartment.dao.findByPropEQAndIdNEQWithDat("name", cDepartment.getName(), cDepartment.getId());
+            Kv kv= Kv.create();
+            kv.put("cCode=",cDepartment.getCCode());
+            kv.put("name=",cDepartment.getName());
+            kv.put("id<>",cDepartment.getId());
+            kv=CDepartment.buildParamMap(CDepartment.class,kv);
+            list=CDepartment.dao.findByAndCond(kv);
             if (!list.isEmpty()) {
                 addError(Consts.REQ_JSON_CODE.fail.name(), "名称值重复");
                 return;
             }
 
-            list = CDepartment.dao.findByPropEQAndIdNEQWithDat("code", cDepartment.getCode(), cDepartment.getId());
+            kv.clear();
+            kv.put("cCode=",cDepartment.getCCode());
+            kv.put("code=",cDepartment.getCode());
+            kv.put("id<>",cDepartment.getId());
+            kv=CDepartment.buildParamMap(CDepartment.class,kv);
+            list = CDepartment.dao.findByAndCond(kv);
             if (!list.isEmpty()) {
                 addError(Consts.REQ_JSON_CODE.fail.name(), "编号值重复");
                 return;

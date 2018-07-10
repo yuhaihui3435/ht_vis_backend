@@ -8,5 +8,7 @@ import com.ht.vis.model.base.BaseCStaff;
 @SuppressWarnings("serial")
 public class CStaff extends BaseCStaff<CStaff> {
 	public static final CStaff dao = new CStaff().dao();
-
+	public CInfo getCInfo(){
+		return CInfo.dao.findByCodeInCache(getCCode());
+	}
 }

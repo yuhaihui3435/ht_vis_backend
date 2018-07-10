@@ -17,6 +17,7 @@ public class VInfoService extends CoreService {
     private static VInfo vInfoDao = VInfo.dao;
 
     public static final String CACHEKEY_ALLVINFO="allVInfo";
+    public static final String CACHEKEY_ALLVINFO_BYCODE="allVInfoByCode_";
 
     public List<VInfo> findAll(VInfoQuery vInfoQuery) {
         Kv kv = Kv.create();
@@ -104,12 +105,14 @@ public class VInfoService extends CoreService {
     public void save(VInfo vInfo) {
         vInfo.save();
         CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO);
+        CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO_BYCODE+vInfo.getCCode());
     }
 
     @Before({Tx.class})
     public void update(VInfo vInfo) {
         vInfo.update();
         CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO);
+        CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO_BYCODE+vInfo.getCCode());
     }
 
     @Before({Tx.class})
@@ -122,6 +125,7 @@ public class VInfoService extends CoreService {
 
         vInfo.apDel();
         CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO);
+        CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO_BYCODE+vInfo.getCCode());
     }
 
     @Before({Tx.class})
@@ -129,6 +133,7 @@ public class VInfoService extends CoreService {
         VInfo vInfo = findOne(id);
         vInfo.delete();
         CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO);
+        CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO_BYCODE+vInfo.getCCode());
     }
 
     @Before({Tx.class})
@@ -138,7 +143,6 @@ public class VInfoService extends CoreService {
                 logicDel(id, opId);
             }
         }
-        CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO);
     }
 
     @Before({Tx.class})
@@ -148,11 +152,14 @@ public class VInfoService extends CoreService {
                 del(id);
             }
         }
-        CacheKit.remove(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO);
     }
     //查询所有车牌照号缓存
     public List<VInfo> findAllInCache(){
         return vInfoDao.findByCache(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO,"select * from v_info where dAt is null and status='0'");
+    }
+
+    public List<VInfo> findAllByCCodeInCache(String cCode){
+        return vInfoDao.findByCache(VInfo.class.getSimpleName(),CACHEKEY_ALLVINFO_BYCODE+cCode,"select * from v_info where dAt is null and status='0' and cCode=?",cCode);
     }
 
 

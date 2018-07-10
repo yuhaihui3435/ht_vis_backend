@@ -33,12 +33,12 @@ public abstract class BaseVInfo<M extends BaseVInfo<M>> extends CoreModel<M> imp
 		return getStr("host");
 	}
 
-	public void setType(java.lang.String type) {
+	public void setType(java.lang.Integer type) {
 		set("type", type);
 	}
 
-	public java.lang.String getType() {
-		return getStr("type");
+	public java.lang.Integer getType() {
+		return getInt("type");
 	}
 
 	public void setTel(java.lang.String tel) {

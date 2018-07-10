@@ -26,12 +26,20 @@ public class VLineController extends CoreController {
 
     public void list() {
         VLineQuery vLineQuery = (VLineQuery) getQueryModel(VLineQuery.class);
+        if (currUser() != null) {
+            if(StrUtil.isNotBlank(currUser().getCCode()))
+            vLineQuery.setcCode(currUser().getCCode());
+        }
         List<VLine> ret = vLineService.findAll(vLineQuery);
         renderJson(JSON.toJSONString(ret, SerializerFeature.DisableCircularReferenceDetect));
     }
 
     public void page() {
         VLineQuery vLineQuery = (VLineQuery) getQueryModel(VLineQuery.class);
+        if (currUser() != null) {
+            if(StrUtil.isNotBlank(currUser().getCCode()))
+            vLineQuery.setcCode(currUser().getCCode());
+        }
         Page<VLine> ret = vLineService.findPage(vLineQuery);
         renderJson(JSON.toJSONString(ret, SerializerFeature.DisableCircularReferenceDetect));
     }

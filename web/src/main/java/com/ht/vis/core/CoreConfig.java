@@ -9,6 +9,7 @@ import com.ht.vis.controller.company.CStaffController;
 import com.ht.vis.controller.res.ResController;
 import com.ht.vis.controller.role.RoleController;
 import com.ht.vis.controller.ser.SerController;
+import com.ht.vis.controller.sp.SpAssessmentCriteriaController;
 import com.ht.vis.controller.user.UserController;
 import com.ht.vis.controller.vehicle.VChangeController;
 import com.ht.vis.controller.vehicle.VInfoController;
@@ -101,6 +102,7 @@ public class CoreConfig extends JFinalConfig {
 				add("/cStaff", CStaffController.class);
 				add("/cInfo", CInfoController.class);
 				add("/vLine", VLineController.class);
+				add("/spAssessmentCriteria", SpAssessmentCriteriaController.class);
 
 			}
 		});

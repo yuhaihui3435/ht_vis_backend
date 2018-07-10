@@ -12,35 +12,17 @@ public class VInfo extends BaseVInfo<VInfo> {
     public static final VInfo dao = new VInfo().dao();
 
     public String getTypeStr() {
-        if ("0".equals(getType()))
-            return "班车客运";
-        if ("1".equals(getType()))
-            return "校车";
-        if ("2".equals(getType()))
-            return "旅游客运";
-        if ("3".equals(getType()))
-            return "包车客运";
-        if ("4".equals(getType()))
-            return "出租车客运";
-        return null;
+        Dd dd=CacheKit.get(Consts.CACHE_NAMES.dd.name(), "id_" + getType().intValue());
+        return dd==null?Consts.NON_SET:dd.getName();
     }
 
     public String getLineStr() {
-        if(getLine()!=null) {
-            Dd dd = CacheKit.get(Consts.CACHE_NAMES.dd.name(), "id_" + getLine().intValue());
-            return dd != null ? dd.getName() : Consts.UN_KNOW;
-        }else{
-            return Consts.UN_KNOW;
-        }
+        VLine vLine=VLine.dao.findFirstByPropEQ("cCode",getCCode());
+        return vLine==null?Consts.NON_SET:vLine.getName();
     }
 
     public String getAreaStr() {
-        if(getArea()!=null) {
-            Dd dd = CacheKit.get(Consts.CACHE_NAMES.dd.name(), "id_" + getArea().intValue());
-            return dd != null ? dd.getName() : Consts.UN_KNOW;
-        }else{
-            return Consts.UN_KNOW;
-        }
+        return null;
     }
 
     public CInfo getCInfo(){

@@ -18,6 +18,9 @@ public class CDepartmentService extends CoreService {
 
     public List<CDepartment> findAll(CDepartmentQuery cDepartmentQuery) {
         Kv kv = Kv.create();
+        if (StrUtil.isNotBlank(cDepartmentQuery.getcCode())) {
+            kv.put("cCode=", cDepartmentQuery.getcCode());
+        }
         kv.put("dAt", "");
         if (StrUtil.isNotBlank(cDepartmentQuery.getOrderBy())) {
             kv.put("orderBy", cDepartmentQuery.getOrderBy());
@@ -29,6 +32,9 @@ public class CDepartmentService extends CoreService {
 
     public Page<CDepartment> findPage(CDepartmentQuery cDepartmentQuery) {
         Kv kv = Kv.create();
+        if (StrUtil.isNotBlank(cDepartmentQuery.getcCode())) {
+            kv.put("cCode=", cDepartmentQuery.getcCode());
+        }
         kv.put("dAt", "");
         if (StrUtil.isNotBlank(cDepartmentQuery.getOrderBy())) {
             kv.put("orderBy", cDepartmentQuery.getOrderBy());
@@ -54,10 +60,7 @@ public class CDepartmentService extends CoreService {
     @Before({Tx.class})
     public void logicDel(Integer id, Integer opId) {
         CDepartment cDepartment = findOne(id);
-
-
         cDepartment.apDel();
-
     }
 
     @Before({Tx.class})

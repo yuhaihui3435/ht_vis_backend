@@ -9,4 +9,7 @@ import com.ht.vis.model.base.BaseCDepartment;
 public class CDepartment extends BaseCDepartment<CDepartment> {
 	public static final CDepartment dao = new CDepartment().dao();
 
+	public CInfo getCInfo(){
+		return CInfo.dao.findByCodeInCache(getCCode());
+	}
 }

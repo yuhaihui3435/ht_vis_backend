@@ -8,6 +8,13 @@ import com.ht.vis.core.CoreQuery;
 @SuppressWarnings("serial")
 public class VLineQuery extends CoreQuery {
 
+    private String cCode;
 
+    public String getcCode() {
+        return cCode;
+    }
 
+    public void setcCode(String cCode) {
+        this.cCode = cCode;
+    }
 }

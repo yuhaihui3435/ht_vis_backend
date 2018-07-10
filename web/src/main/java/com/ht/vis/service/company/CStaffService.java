@@ -25,6 +25,9 @@ public class CStaffService extends CoreService {
         if (StrUtil.isNotBlank(cStaffQuery.getCode())) {
             kv.put("code=", cStaffQuery.getCode());
         }
+        if (StrUtil.isNotBlank(cStaffQuery.getcCode())) {
+            kv.put("cCode=", cStaffQuery.getcCode());
+        }
         if (StrUtil.isNotBlank(cStaffQuery.getTel())) {
             kv.put("tel=", cStaffQuery.getTel());
         }
@@ -41,6 +44,9 @@ public class CStaffService extends CoreService {
         Kv kv = Kv.create();
         if (StrUtil.isNotBlank(cStaffQuery.getName())) {
             kv.put("name like", "%" + cStaffQuery.getName() + "%");
+        }
+        if (StrUtil.isNotBlank(cStaffQuery.getcCode())) {
+            kv.put("cCode=", cStaffQuery.getcCode());
         }
         if (StrUtil.isNotBlank(cStaffQuery.getCode())) {
             kv.put("code=", cStaffQuery.getCode());
@@ -105,6 +111,10 @@ public class CStaffService extends CoreService {
 
     public List<CDepartmentStaff> findDJbyCode(String staffCode){
         return CDepartmentStaff.dao.findByPropEQ("sCode",staffCode);
+    }
+
+    public CStaff findByCode(String cStaffCode){
+        return cStaffDao.findFirstByPropEQ("code",cStaffCode);
     }
 }
 

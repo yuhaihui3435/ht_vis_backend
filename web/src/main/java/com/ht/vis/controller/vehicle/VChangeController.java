@@ -1,8 +1,12 @@
 package com.ht.vis.controller.vehicle;
 
+import cn.hutool.core.util.StrUtil;
 import com.ht.vis.core.CoreController;
+import com.ht.vis.model.CInfo;
 import com.ht.vis.model.VChange;
+import com.ht.vis.query.CInfoQuery;
 import com.ht.vis.query.VChangeQuery;
+import com.ht.vis.service.company.CInfoService;
 import com.ht.vis.service.vehicle.VChangeService;
 import com.ht.vis.service.vehicle.VInfoService;
 import com.ht.vis.validator.vehicle.VChangeValidator;
@@ -19,6 +23,7 @@ public class VChangeController extends CoreController {
 
     private VChangeService vChangeService = Duang.duang(VChangeService.class.getSimpleName(), VChangeService.class);
     private VInfoService vInfoService = Duang.duang(VInfoService.class.getSimpleName(), VInfoService.class);
+    private CInfoService cInfoService=Duang.duang(CInfoService.class.getSimpleName(),CInfoService.class);
 
     public void list() {
         VChangeQuery vChangeQuery = (VChangeQuery) getQueryModel(VChangeQuery.class);
@@ -76,7 +81,13 @@ public class VChangeController extends CoreController {
 
     public void init() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put(VInfoService.CACHEKEY_ALLVINFO, vInfoService.findAllInCache());
+        if(StrUtil.isNotBlank(currUser().getCCode())){
+            ret.put(VInfoService.CACHEKEY_ALLVINFO, vInfoService.findAllByCCodeInCache(currUser().getCCode()));
+        }else {
+//            List<CInfo> allCInfoList=cInfoService.findAll(new CInfoQuery());
+//            ret.put("cInfoList",allCInfoList);
+            ret.put(VInfoService.CACHEKEY_ALLVINFO, vInfoService.findAllInCache());
+        }
         renderJson(ret);
     }
 }

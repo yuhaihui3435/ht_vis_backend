@@ -92,19 +92,30 @@ public abstract class CoreModel<M extends CoreModel<M>> extends Model<M> {
 	public List<M> findByPropEQWithDat(String name, Object val){
 		return super.find("select * from "+getTableName()+" where "+name+"=? and dAt is null",val);
 	}
+	public M findFirstByPropEQWithDat(String name,Object val){
+		return super.findFirst("select * from "+getTableName()+" where "+name+"=? and dAt is null",val);
+	}
 	public M findFirstByPropEQ(String name,Object val){
 		return super.findFirst("select * from "+getTableName()+" where "+name+"=?",val);
 	}
 	public List<M> findByPropEQAndIdNEQ(String name, Object val,Object id){
 		return super.find("select * from "+getTableName()+" where "+name+"=? and id!=?",val,id);
 	}
+	public M findFirstByPropEQAndIdNEQ(String name, Object val,Object id){
+		return super.findFirst("select * from "+getTableName()+" where "+name+"=? and id!=?",val,id);
+	}
 	public List<M> findByPropEQAndIdNEQWithDat(String name, Object val,Object id){
 		return super.find("select * from "+getTableName()+" where "+name+"=? and id!=? and dAt is null",val,id);
 	}
-
+	public M findFirstByPropEQAndIdNEQWithDat(String name, Object val,Object id){
+		return super.findFirst("select * from "+getTableName()+" where "+name+"=? and id!=? and dAt is null",val,id);
+	}
 
 	public List<M> findByPropLIKE(String name, String val){
 		return super.find("select * from "+getTableName()+" where "+name+" like ?","%"+val+"%");
+	}
+	public M findFirstByPropLIKE(String name, String val){
+		return super.findFirst("select * from "+getTableName()+" where "+name+" like ?","%"+val+"%");
 	}
 
 	public List<M> findByAndCond( Map<String,Object> cond){
