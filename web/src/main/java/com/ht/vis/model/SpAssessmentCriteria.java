@@ -26,7 +26,7 @@ public class SpAssessmentCriteria extends BaseSpAssessmentCriteria<SpAssessmentC
     public String getStarsStr() {
         if ("1".equals(getStars()))
             return "一级";
-        if ("2".equals(getStars()))
+        if ("2".equals(getStars()))  
             return "二级";
         if ("3".equals(getStars()))
             return "三级";
