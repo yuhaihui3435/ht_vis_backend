@@ -2,6 +2,7 @@ package com.ht.vis.core;
 
 
 import com.ht.vis.LoginCtr;
+import com.ht.vis.controller.SFileStorageController;
 import com.ht.vis.controller.company.CDepartmentController;
 import com.ht.vis.controller.company.CInfoController;
 import com.ht.vis.controller.company.CMeetingController;
@@ -103,6 +104,7 @@ public class CoreConfig extends JFinalConfig {
 				add("/cInfo", CInfoController.class);
 				add("/vLine", VLineController.class);
 				add("/spAssessmentCriteria", SpAssessmentCriteriaController.class);
+				add("/sFileStorage", SFileStorageController.class);
 
 			}
 		});

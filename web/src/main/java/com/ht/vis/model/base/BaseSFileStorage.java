@@ -65,4 +65,12 @@ public abstract class BaseSFileStorage<M extends BaseSFileStorage<M>> extends Co
 		return getStr("fileType");
 	}
 
+	public void setCode(String code) {
+		set("code", code);
+	}
+
+	public String getCode() {
+		return getStr("code");
+	}
+
 }

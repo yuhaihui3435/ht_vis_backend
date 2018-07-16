@@ -26,5 +26,6 @@ public class _MappingKit {
 		arp.addMapping("c_info", "id", CInfo.class);
 		arp.addMapping("v_line", "id", VLine.class);
 		arp.addMapping("sp_assessment_criteria", "id", SpAssessmentCriteria.class);
+		arp.addMapping("s_file_storage", "id", SFileStorage.class);
 	}
 }
